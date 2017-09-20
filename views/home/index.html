@@ -1,0 +1,58 @@
+
+<div class="slider__list slick-slider" style="width: 700px;height: 400px;">
+    <div class="slider__item" style=" width: 400px; display: inline-block; position: absolute;">
+        <img class="slider__img" style="width: 100%; display: inline-block;"
+             src="/webroot/img/articles/28_laferrari-apera-final-edition-210-02-218x150.jpg" alt="">
+    </div>
+    <div class="slider__item" style=" width: 400px; display: none; position: absolute;">
+        <img class="slider__img" style="width: 100%; display: inline-block;"
+             src="/webroot/img/articles/26_hyperloop-one-winners-1-218x150.jpeg" alt="">
+    </div>
+    <div class="slider__item" style=" width: 400px; display: none; position: absolute;">
+        <img class="slider__img" style="width: 100%; display: inline-block;"
+             src="/webroot/img/21_hyperloop-one-winners-1-218x150.jpeg" alt="">
+    </div>
+    <div class="slider__item" style=" width: 400px; display: none; position: absolute;">
+        <img class="slider__img" style="width: 100%; display: inline-block;"
+             src="/webroot/img/articles/40_iss-bact-1_1024-218x150.jpg" alt="">
+    </div>
+    <div class="slider__item" style=" width: 400px; display: none; position: absolute;">
+        <img class="slider__img" style="width: 100%; display: inline-block;"
+             src="/webroot/img/articles/56_moon-water-map-2-218x150.jpg" alt="">
+    </div>
+    <div class="slider__item" style=" width: 400px; display: none; position: absolute;">
+        <img class="slider__img" style="width: 100%; display: inline-block;"
+             src="/webroot/img/articles/61_tesla-model-3-first-ride-002-1020.0.0-218x150.jpg" alt="">
+    </div>
+    <div class="slider__item" style=" width: 400px; display: none; position: absolute;">
+        <img class="slider__img" style="width: 100%; display: inline-block;"
+             src="/webroot/img/articles/32_lilium-jet-funding-1-218x150.jpg" alt="">
+    </div>
+
+
+
+
+</div>
+
+
+<h3>Last Articles</h3><br/>
+
+
+
+<table class="table table-striped" style="width: 100%;">
+    <?php if ($data['categ_articles']) {
+        foreach( $data['categ_articles'] as $cat_id => $categ) { ?>
+        <hr>
+
+            <h4><b><a href="/articles/filter/?categ[]=<?= $cat_id ?>" > <?= $categ['cat_name'] ?> </a></b></h4>
+            <?php if ($categ['articles']) {
+                    foreach( $categ['articles'] as $art ) { ?>
+                    <p><a href="/article_page/view/<?= $art['art_id'] ?>" > <?= $art['art_title'] ?> </a></p>
+            <?php }  } ?>
+    <?php } ?>
+    <?php } ?>
+</table>
+
+<br/>
+
+

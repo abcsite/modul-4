@@ -1,0 +1,168 @@
+<?php if ($data) { ?>
+    <h3>Edit Article</h3>
+    <p><?=$data['article']['id']?> -- <?=$data['article']['title']?></p>
+<?php } else { ?>
+    <h3>Add Article</h3><br/>
+<?php } ?>
+
+
+<form method="post" action="" enctype="multipart/form-data"   style="width: 900px;">
+    <p>
+        <input type="submit" class="btn btn-success" value="Save"  style="width: 100px;" />&nbsp;
+        <?php if ($data['article']['id']) { ?>
+        <a href="/article_page/view/<?= $data['article']['id'] ?>"  class="btn btn-success" >View Article</a>&nbsp;
+        <a href="/admin/articles/edit/"  class="btn btn-success" >New Article</a>&nbsp;
+        <a href="/admin/articles/"  class="btn btn-success" >List Articles</a>&nbsp;
+        <?php } ?>
+    </p>
+
+
+
+    <div id="tabs" style="width: 870px;">
+        <ul>
+            <li><a href="#tabs-1">Basic Data</a></li>
+            <li><a href="#tabs-2">Images</a></li>
+            <li><a href="#tabs-3">Tags</a></li>
+            <li><a href="#tabs-4">Category</a></li>
+        </ul>
+
+        <div id="tabs-1">
+            <?php if ($data['article']['id']) { ?>
+            <input type="hidden" name="id" value="<?=$data['article']['id']?>"/>
+            <?php } ?>
+            <input type="hidden" id="date_created" name="date_created" value="<?=$data['article']['date_created']?>"
+                   class="form-control"/>
+            <input type="hidden" id="date_published" name="date_published"
+                   value="<?=$data['article']['date_published']?>"
+                   class="form-control"/>
+            <input type="hidden" id="is_published_old" name="is_published_old"
+                   value="<?=$data['article']['is_published']?>"
+                   class="form-control"/>
+
+            <div class="form-group">
+                <label for="is_published">Publish?</label>
+                <input type="checkbox" id="is_published"
+                       name="is_published" <?php if ( $data['article']['is_published'] ) { ?>
+                checked="checked" <?php } ?> />
+            </div>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" value="<?=$data['article']['title']?>" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea  id="description" name="description" class="form-control" rows="3"><?=$data['article']['description'] ?></textarea>
+            </div>
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" id="author" name="author" value="<?=$data['article']['author']?>"
+                       class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="text">Text</label>
+                <textarea id="text" name="text" class="form-control" rows="15"><?=$data['article']['text']?></textarea>
+            </div>
+
+        </div>
+
+        <div id="tabs-2">
+
+            <label for="images">Add Images:</label>
+            <input type="file" id="images" name="images[]" multiple="" accept="image/*"/><br/>
+
+            <label for="images">Replace Images:</label>
+            <table class="table table-striped" style="width: 100%;">
+                <tr style="font-weight: bolder; ">
+                    <td style="width: 5%;">#</td>
+                    <td style="width: 20%;">Images</td>
+                    <td style="width: 30%;">Full Name</td>
+                    <td style="width: 30%;">Replace Image</td>
+                    <td style="width: 10%;">Delete Image</td>
+                </tr>
+                <?php if ($data['article_images']) {$i=1; foreach( $data['article_images'] as $img) { ?>
+                <tr>
+                    <td><?= $i++ ?></td>
+                    <td><img src="/webroot/img/articles/<?= $img['full_name'] ?>" alt="" style="width: 100px;"></td>
+                    <td><?= $img['full_name'] ?></td>
+                    <td align="left">
+                        <input type="file" name="image[<?= $img['id'] ?>]" accept="image/*"/>
+                    </td>
+                    <td align="left">
+                        <!--<a href="/admin/articles/deleteimage/<?= $img['full_name'] . '/' . $data['article']['id'] ?>" onclick="return confirmDelete();"><button class="btn btn-sm btn-warning">delete</button></a>-->
+                        <a href="/admin/articles/deleteimage/<?= $img['full_name'] . '/' . $data['article']['id'] ?>"
+                           onclick="return confirmDelete();">delete</a>
+                    </td>
+                </tr>
+                <?php }} ?>
+            </table>
+        </div>
+
+
+        <div id="tabs-3">
+            <div class="form-group">
+                <label for="tags">Tags ( ',' - delimiter ):</label>
+                <textarea id="tags" name="tags" class="form-control"><?=$data['article']['tags']?></textarea>
+            </div>
+        </div>
+
+
+        <div id="tabs-4">
+
+            <label for="images">Select category of article:</label>
+            <table class="table table-striped" style="width: 100%;">
+                <tr style="font-weight: bolder; ">
+                    <td style="width: 5%;">#</td>
+                    <td style="width: 50%;">Category</td>
+                    <td style="width: 15%;">Add/Del</td>
+                </tr>
+                <?php $i=1; if ($data['article_cat']) { foreach( $data['article_cat'] as $cat) { ?>
+                <tr>
+                    <td><?= ++$i ?></td>
+                    <td><?= $cat['cat_name'] ?></td>
+                    <td align="left">
+                        <span
+                         class="btn btn-sm btn-warning" id="cat_id_del<?= $cat["cat_id"] ?>"  style="display:inline-block"
+                        onclick="myAjax('/admin/articles/del_cat_ajax/<?= $cat["cat_id"] ?>/<?= $data["article"]["id"] ?>/del/', '', updateCategoryByArticle, error);"  >
+                        delete</span>
+                        <span
+                         class="btn btn-sm btn-primary" id="cat_id_add<?= $cat["cat_id"] ?>"  style="display:none"
+                        onclick="myAjax('/admin/articles/add_cat_ajax/<?= $cat["cat_id"] ?>/<?= $data["article"]["id"] ?>/add/', '', updateCategoryByArticle, error);">
+                        add</span>
+                    </td>
+                </tr>
+                <?php }} ?>
+                <?php if ($data['article_cat_other']) { foreach( $data['article_cat_other'] as $cat) { ?>
+                <tr >
+                    <td><?= $i++ ?></td>
+                    <td><?= $cat['cat_name'] ?></td>
+                    <td align="left">
+                        <span
+                         class="btn btn-sm btn-warning" id="cat_id_del<?= $cat["cat_id"] ?>"  style="display:none"
+                          onclick="myAjax('/admin/articles/del_cat_ajax/<?= $cat["cat_id"] ?>/<?= $data["article"]["id"] ?>/del/', '', updateCategoryByArticle, error);"  >
+                        delete</span>
+                        <span
+                           class="btn btn-sm btn-primary" id="cat_id_add<?= $cat["cat_id"] ?>"  style="display:inline-block"
+                           onclick="myAjax('/admin/articles/add_cat_ajax/<?= $cat["cat_id"] ?>/<?= $data["article"]["id"] ?>/add/', '', updateCategoryByArticle, error);">
+                        add</span>
+                    </td>
+                </tr>
+                <?php }} ?>
+
+                <!--<tr class="item">-->
+                    <!--<td></td>-->
+                    <!--<td></td>-->
+                    <!--<td align="left">-->
+                        <!--<a href="#" data-cat_id = "" data-id = ""-->
+                           <!--class="btn btn-sm btn-primary"-->
+                           <!--onclick="myAjax('/admin/articles/add_cat_ajax/11/94/', '7777', updateCategoryByArticle, error);"-->
+                        <!--&gt;add</a>-->
+                    <!--</td>-->
+                <!--</tr>-->
+
+            </table>
+
+        </div>
+
+    </div>
+
+</form>

@@ -1,0 +1,36 @@
+body {
+    padding-top: 50px;
+}
+.starter-template {
+    padding: 40px 15px;
+}
+/*form {*/
+    /*width: 400px;*/
+    /*max-width: 400px;*/
+/*}*/
+.alert{
+    width: 400px;
+    max-width: 400px;
+}
+.hide{
+    display: none;
+}
+.form-error {
+    color: red;
+    font-style: italic;
+    animation: pulsing 0.7s infinite ease-in-out alternate-reverse;
+}
+@keyframes pulsing {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.3;
+    }
+}
+
+/*.my-header{*/
+    background: #555;
+    background-image: url(/webroot/img/background/bg_head);
+    background-size:  cover;
+/*}*/

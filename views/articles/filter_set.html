@@ -1,0 +1,93 @@
+
+
+
+<h3>Filter of Articles</h3><br/>
+
+
+<p>
+<form action="" method="post">
+
+    <p>
+    <b>Categories (use  "ctrl" and "shift" for multiple select):</b> </br>
+        <select name="categ[]"  multiple>
+            <?php
+                if ( $data['filter']['categ_all']) {
+                foreach($data['filter']['categ_all'] as $cat){  ?>
+                   <option value="<?= $cat['id'] ?>" > <?= $cat['category_name'] ?> </option>
+            <?php }  } ?>
+        </select>
+    </p>
+
+    <p>
+        <b> Tags (use  "ctrl" and "shift" for multiple select):</b> </br>
+        <select name="tags[]" id="" multiple>
+            <?php
+                if ( $data['filter']['tags_all']) {
+                foreach($data['filter']['tags_all'] as $tag){  ?>
+            <option value="<?= $tag ?>" > <?= $tag ?> </option>
+            <?php }  } ?>
+        </select>
+    </p>
+
+    <p>
+        <b>DateFrom:</b> </br>
+        <p>
+        YYYY:
+        <select name="yyyy" >
+            <option value="1999" selected> 1999 </option>
+            <?php
+             for ($i = 2000; $i < 2030; $i++ ){  ?>
+            <option value="<?= $i ?>" > <?= $i ?> </option>
+            <?php  } ?>
+        </select>
+        MM:
+        <select name="mm" >
+            <?php
+             for ($i = 1; $i < 13; $i++ ){  ?>
+            <option value="<?= $i ?>" > <?= $i ?> </option>
+            <?php  } ?>
+        </select>
+        DD:
+        <select name="dd" >
+            <?php
+             for ($i = 1; $i < 32; $i++ ){  ?>
+            <option value="<?= $i ?>" > <?= $i ?> </option>
+            <?php  } ?>
+        </select>
+   </p>
+
+    <p>
+        <b> DateTo:</b> </br>
+        <p>
+        YYYY:
+        <select name="yyyy_" >
+            <?php
+             for ($i = 2000; $i < 2029; $i++ ){  ?>
+            <option value="<?= $i ?>" > <?= $i ?> </option>
+            <?php  } ?>
+            <option value="2030" selected > 2030 </option>
+        </select>
+        MM:
+        <select name="mm_" >
+            <?php
+             for ($i = 1; $i < 13; $i++ ){  ?>
+            <option value="<?= $i ?>" > <?= $i ?> </option>
+            <?php  } ?>
+        </select>
+        DD:
+        <select name="dd_" >
+            <?php
+             for ($i = 1; $i < 32; $i++ ){  ?>
+            <option value="<?= $i ?>" > <?= $i ?> </option>
+            <?php  } ?>
+        </select>
+</br></br>
+    <input type="submit" class="btn btn-success" value="Find"  style="width: 100px;" />&nbsp;
+
+</form>
+
+</p>
+
+
+
+

@@ -1,0 +1,290 @@
+<!doctype html>
+
+<style type="text/css">
+    #search_list{
+        /*display: none;*/
+        display: inline-block;
+        position: absolute;
+        top: 80%;
+        left: 0px;
+        margin: 0px ;
+        width: 200px;
+        background: #cccccc;
+    }
+    .search_item{
+        padding: 0px  0px  0px  10px ;
+        width: 100%;
+        /*height:25px;*/
+        display: block;
+    }
+    .search_item:hover{
+        background-color: #eeeeee;
+    }
+
+    #menu_li:hover > #menu {
+        display: block;
+    }
+    #menu  {
+        display: none;
+    }
+
+</style>
+
+
+
+
+
+
+<html>
+<head>
+    <title><?= Config::get('site_name') ?></title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style_bg_head.css">
+    <link rel="stylesheet" href="/css/style_bg_page.css">
+    <link rel="stylesheet" type="text/css" href="webroot/lib/slick-carousel/slick/slick.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="assets/libs/slick-carousel/slick-theme.css"/>-->
+
+    <script src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/webroot/js/slick-carousel_script.js"></script>
+    <script defer type="text/javascript" src="/webroot/js/slick-carousel/slick/slick.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/js/user.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+    <script>
+        $(function () {
+            $("#menu").menu();
+        });
+    </script>
+    <style>
+        .ui-menu {
+            width: 150px;
+        }
+    </style>
+
+
+
+</head>
+
+
+<body class="bg_page"   >
+
+<nav class="bg_head navbar navbar-inverse navbar-fixed-top" >
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/"><?= Config::get('site_name') ?></a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li
+                <?php if (App::getRouter()->getController() == 'home') {?>class="active"<?php } ?>><a href="/home/">Home</a></li>
+
+
+
+
+                <li id="menu_li"
+                <?php if (App::getRouter()->getController() == 'articles' && App::getRouter()->getAction() == 'filter_set')
+                {?>class="active"<?php } ?>><a href=""><span>Menu</span></a>
+
+                    <ul id="menu" class="nav znavbar-nav" style="position: absolute;">
+                        <li>
+                            <div><a href="/home/">Home</a></div>
+                        </li>
+                        <li>
+                            <div><a href="/articles/filter_set/">Filter</a></div>
+                        </li>
+                        <li>
+                            <div><a href="/analitics/analitics/?a=0">Analitics</a></div>
+                            <ul>
+                                <li>
+                                    <div><a href="https://google.com/">Google</a></div>
+                                </li>
+                                <li>
+                                    <div>Menu22</div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div><a href="/contacts/">Contact Us</a></div>
+                        </li>
+                        <li>
+                            <div><a href="/users/logout">Logout (<?= Session::get('login') ?>)</a></div>
+                            <ul>
+                                <li>
+                                    <div>Menu33</div>
+                                    <ul>
+                                        <li>
+                                            <div>Menu33</div>
+                                        </li>
+                                        <li>
+                                            <div>Menu33</div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div>Menu33</div>
+                                    <ul>
+                                        <li>
+                                            <div>Menu33</div>
+                                        </li>
+                                        <li>
+                                            <div>Menu33</div>
+                                        </li>
+                                        <li>
+                                            <div>Menu33</div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="/users/login">Login</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+
+                </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <li
+                <?php if (App::getRouter()->getController() == 'articles' && App::getRouter()->getAction() == 'filter_set')
+                {?>class="active"<?php } ?>><a href="/articles/filter_set/">Filter</a></li>
+
+                <li
+                <?php if (App::getRouter()->getController() == 'analitics' && App::getRouter()->getAction() == 'analitics')
+                {?>class="active"<?php } ?>><a href="/analitics/analitics/?a=0">Analitics</a></li>
+
+                <li
+                <?php if (App::getRouter()->getController() == 'contacts') {?>class="active"<?php } ?>><a
+                    href="/contacts/">Contact Us</a></li>
+
+
+                <?php if ( Session::get('login') ) { ?>
+                <li><a href="/users/logout">Logout (<?= Session::get('login') ?>)</a></li>
+                <?php } else { ?>
+                <li
+                <?php if ( App::getRouter()->getController() == 'users' && App::getRouter()->getAction() == 'register' )
+                {?>class="active"<?php } ?> >
+                <a href="/users/register">Register</a></li>
+                <li
+                <?php if ( App::getRouter()->getController() == 'users' && App::getRouter()->getAction() == 'login' )
+                {?>class="active"<?php } ?> >
+                <a href="/users/login">Login</a></li>
+                <?php } ?>
+
+
+                <li  >
+                    <a href="" >
+                        <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                        Search (на русск.):
+                    </a>
+
+                </li>
+                <li style="height: 50px; display: inline-block;" >
+                    <input type="text" id="inp_text" oninput="searchInput()"  style="display: inline-block; height: 24px; margin: 13px 0px ; width: 200px; background: #cccccc;"
+                    value="">
+                        <span id="search_list"  style="">
+                        </span>
+                </li>
+
+
+
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="main starter-template">
+
+        <?php if ( Session::hasflash()) { ?>
+        <div class="alert alert-info" role="alert">
+            <?php Session::flash(); ?>
+        </div>
+        <?php } ?>
+
+        <?=$data['content']?>
+    </div>
+
+    <div class="left">
+
+    </div>
+
+    <div class="left">
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div id="subscribe" style="display: none; width: 500px; height: 400px; position: fixed; bottom: 50px; right: 50px; padding:30px; background-color: #cccccc;">
+    <h3  class="<?= $data['hide_html_element'] ?>" >Subscribe</h3><br/>
+    <form method="post" action="" class="<?= $data['hide_html_element'] ?>">
+        <div class="form-group">
+            <label for="name">First name</label>
+            <input type="text" id="name" name="name" value="<?= $data['form_data']['name'] ?>" class="form-control" />
+            <?php if ( $data['valid_errors']['name']) { ?>
+            <div class="form-error"><?= $data['valid_errors']['name'] ?></div>
+            <?php } ?>
+        </div>
+        <div class="form-group">
+            <label for="surname">Surname</label>
+            <input type="text" id="surname" name="surname" value="<?= $data['form_data']['surname'] ?>" class="form-control" />
+            <?php if ( $data['valid_errors']['surname']) { ?>
+            <div class="form-error"><?= $data['valid_errors']['surname'] ?></div>
+            <?php } ?>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="text" id="email" name="email" value="<?= $data['form_data']['email'] ?>" class="form-control"/>
+            <?php if ( $data['valid_errors']['email']) { ?>
+            <div class="form-error"><?= $data['valid_errors']['email'] ?></div>
+            <?php } ?>
+        </div>
+        <input type="submit" class="btn btn-success" value="Subscribe" />
+        <span id="subscr_btn" class="btn btn-sm btn-warning">Close</span>
+    </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

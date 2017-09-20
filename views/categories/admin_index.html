@@ -1,0 +1,31 @@
+<h3>Categories</h3><br/>
+
+<form method="post" action="/admin/categories/add/" style="width: 400px;">
+    <input type="text" name="category_name" value="" class="form-control"  style="width: 300px; display: inline-block;" />
+    <input type="submit" class="btn btn-success" value="Add"  style="width: 70px; display: inline-block;" />
+</form>
+
+<br/>
+<?php   ?>
+
+<table class="table table-striped" style="width: 400px;">
+    <?php foreach( $data['categories'] as $category_data) { ?>
+    <tr>
+        <td><b><?= $category_data['category_name'] ?></b></td>
+        <td align="right">
+            <a href="/admin/categories/delete/<?= $category_data['id'] ?>" onclick="return confirmDelete();">
+                <button class="btn btn-sm btn-warning">delete</button>
+            </a>
+        </td>
+    </tr>
+    <?php } ?>
+</table>
+
+
+
+
+
+
+
+
+

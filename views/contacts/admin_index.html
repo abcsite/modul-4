@@ -1,0 +1,22 @@
+<h3>Messages</h3><br/>
+<table class="table table-striped" style="width: 100%;">
+    <tr style="font-weight: bolder; ">
+        <td style="width: 5%;">#</td>
+        <td style="width: 10%;">Name</td>
+        <td style="width: 20%;">Email</td>
+        <td style="">Message</td>
+        <td style="width: 120px;" align="left">Actions</td>
+    </tr>
+    <?php foreach( $data as $item) { ?>
+        <tr>
+            <td><?= $item['id'] ?></td>
+            <td><?= $item['name'] ?></td>
+            <td><?= $item['email'] ?></td>
+            <td><?= $item['message'] ?></td>
+            <td align="left">
+                <a href="/admin/contacts/edit/<?= $item['id'] ?>"><button class="btn btn-sm btn-primary">edit</button></a>
+                <a href="/admin/contacts/delete/<?= $item['id'] ?>" onclick="return confirmDelete();"><button class="btn btn-sm btn-warning">delete</button></a>
+            </td>
+        </tr>
+    <?php } ?>
+</table>

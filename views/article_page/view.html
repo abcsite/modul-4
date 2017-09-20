@@ -1,0 +1,107 @@
+<h3><?=$data['article_page']['title'] ?></h3><br/>
+
+
+<?php if ($data['article_page']['date_published']) echo $data['article_page']['date_published']; ?>
+&nbsp;&nbsp;&nbsp;
+<b>Author : </b>
+<?php if ($data['article_page']['author']) {echo $data['article_page']['author'];} ?>
+&nbsp;&nbsp;
+<br/><br/>
+
+<?php if ($data['article_images']) {
+        foreach( $data['article_images'] as $img_name) { ?>
+    <img src="/webroot/img/articles/<?= $img_name['full_name'] ?>" alt="" style="width: 24%; display:inline-block;">
+<?php } } ?>
+
+<br/><br/>
+
+<?php if ($data['article_page']['text']) echo $data['article_page']['text']; ?>
+
+<br/><br/>
+
+<p>
+    <b>Online: <span id="online">0</span></b>
+</p>
+<p>
+    <b>Visited: <span id="visited">0</span></b>
+</p>
+
+<p>
+    <b>Tags: </b>
+    <?php
+            if ( $data['article_page']['tags']) {
+                foreach( $data['article_page']['tags'] as $tag){
+                    echo ' <b><a href="/articles/filter/?tags[]=' . $tag . '" >' . $tag . ' </a></b> &nbsp;' ;
+            }
+        }
+    ?>
+</p>
+
+
+
+
+
+<hr>
+<h4>Comments</h4><br/>
+
+
+<!--<table class="table table-striped" style="width: 100%;">-->
+
+    <?php
+    function comments_echo($comm_arr, $data = null)
+        {
+            foreach ($comm_arr as $row) {  ?>
+
+    <hr>
+    <div align="left" style="padding: 0px 0px 0px <?= $data  ?>px ;">
+        <b>User: </b>  <?php echo  $row['login']  ; ?>
+        <b>Comment id: </b>  <?php echo  $row['id_comment'] ; ?>
+
+        <div name="" id=""  style="width: 100%;"> <?php echo  $row['text'] ; ?>  </div>
+            <textarea name="" id=""  style="width: 100%;">   </textarea>
+
+            <span id="comm_btn" class="btn btn-sm btn-warning">Reply</span>
+            <span id="comm_btn" class="btn btn-sm btn-warning">Save</span>
+            <span id="comm_btn" class="btn btn-sm btn-warning">Like:</span>
+            <span id="comm_btn" class="btn btn-sm btn-warning">Dislike:</span>
+            <input type="hidden" value="" id="comm_id_<?= $row['id_comment']  ?>" >
+
+       </div>
+    </div>
+              <?php  if ($row['childs']) {
+            comments_echo($row['childs'], $data + 100);
+            }
+    ?>  <?php
+
+        }
+    }
+    ?>
+    <?php comments_echo($data['comments'], 10) ; ?>
+
+    <?php  ?>
+
+
+<hr>
+</br>
+</br>
+</br>
+<div align="left" style="padding: 0px 0px 0px 0px ;">
+    <b>User: </b>
+    <b>Comment id: </b>
+
+    <div name="" id=""  style="width: 100%;">   </div>
+    <textarea name="" id=""  style="width: 100%;">   </textarea>
+
+    <span id="comm_btn" class="btn btn-sm btn-warning">Reply</span>
+    <span id="comm_btn" class="btn btn-sm btn-warning">Save</span>
+    <span id="comm_btn" class="btn btn-sm btn-warning">Like:</span>
+    <span id="comm_btn" class="btn btn-sm btn-warning">Dislike:</span>
+    <input type="hidden" value="" id="comm_id_" >
+
+</div>
+</div>
+
+<!--</table>-->
+
+
+

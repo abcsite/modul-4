@@ -1,0 +1,33 @@
+<h3>Users</h3><br/>
+<form method="post" action="" style="width: 100%; max-width: 100%;">
+    <table class="table table-striped" style="width: 100%;">
+        <tr style="font-weight: bolder; ">
+            <td style="width: 5%;">#</td>
+            <td style="width: 20%;">Login</td>
+            <td style="width: 30%;">Email</td>
+            <td style="width: 20%;">Role</td>
+            <td style="width: 10%;" align="left">Is active</td>
+        </tr>
+        <?php foreach( $data as $item) { ?>
+        <tr>
+            <td><?= $item['id'] ?></td>
+            <td><?= $item['login'] ?></td>
+            <td><?= $item['email'] ?></td>
+            <td><?= $item['role'] ?></td>
+            <td align="left">
+                <input type="hidden" name="is_active_hide[<?= $item['id'] ?>]" value="<?= $item['is_active'] ?>"/>
+                <input type="checkbox" name="is_active_checkbox[<?= $item['id'] ?>]" <?php if ( $item['is_active'] ) { ?>
+                checked="checked" <?php } ?>  />
+            </td>
+        </tr>
+        <?php } ?>
+    </table>
+    <input type="submit" class="btn btn-success" value="Save"/>
+</form>
+
+<!--<input type="radio" id="is_active_yes<?= $item['id'] ?>" name="is_active[<?= $item['id'] ?>]" <?php if ( $item['is_active'] ) { ?>-->
+<!--checked="checked" <?php } ?>  />-->
+<!--<label for="is_active_yes<?= $item['id'] ?>">Yes</label>-->
+<!--<input type="radio" id="is_active_no<?= $item['id'] ?>" name="is_active[<?= $item['id'] ?>]" <?php if ( !$item['is_active'] ) { ?>-->
+<!--checked="checked" <?php } ?>  />-->
+<!--<label for="is_active_no<?= $item['id'] ?>">No</label>-->

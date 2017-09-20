@@ -1,0 +1,68 @@
+<h3>List Articles</h3><br/>
+
+
+<p>
+    <b> Filters :</b>
+    <p>
+       Categories:
+        <?php
+            if ( $data['filter']['categ']) {
+                foreach($data['filter']['categ'] as $cat){
+                $str = 'href="/articles/filter/?categ[]=' . $cat['id'] . '"' ;
+                    echo " <b><a $str >" . $cat['category_name'] . ' </a></b> &nbsp; ' ;
+                }
+            }
+        ?>
+    </p>
+
+    <p>
+      Tags:
+        <?php
+            if ( $data['filter']['tags']) {
+                foreach($data['filter']['tags'] as $tag){
+                    echo ' <b><a href="/articles/filter/?tags[]=' . $tag . '" >' . $tag . ' </a></b> &nbsp;' ;
+            }
+        }
+        ?>
+    </p>
+
+    <p>
+      Date:&nbsp;&nbsp;
+        From &nbsp;  <?= $data['filter']['date_min'] ?> &nbsp;&nbsp;&nbsp;
+        To &nbsp; <?= $data['filter']['date_max'] ?>
+    </p>
+</p>
+
+<hr>
+<table class="table table-striped" style="width: 100%;">
+    <?php if ($data['articles']) {
+                    foreach( $data['articles'] as $art ) { ?>
+    <p><b><a href="/article_page/view/<?= $art['art_id'] ?>" > <?= $art['art_title'] ?> </a></b></p>
+    <?php }  } ?>
+</table>
+<hr>
+
+
+<p><b>Page: <?= $data['pagination']['currentPage'] ?></b></p>
+
+<a href="/articles/filter/?<?= $data['filter_url'] ?>&to_page=1" ><button class="btn btn-sm btn-primary">First</button></a>
+
+<div style=" display: inline-block; position: relative;  ">
+    <button class="btn btn-sm btn-primary" style="width: 50px;" onclick="paginationTable()">. . .</button>
+
+    <div id="show_table_pagin" data_show=""  class="" style=" display: none; position:absolute; left: 0px; top:100% ; overflow: scroll; height: 70px; width: 50px;" >
+        <table class="-table -table-striped" style="width: 40px; background: #ffffff; position: absolute;  ">
+            <?php
+            for ( $i = 1 ; $i <= $data['pagination']['pagesCount'] ; $i++ ) { ?>
+            <tr><td  align="center" ><b><a  href="/articles/filter/?<?= $data['filter_url'] ?>&to_page=<?= $i ?>" > <?= $i ?> </a></b><td></tr>
+            <?php  } ?>
+        </table>
+    </div>
+</div>
+
+<a href="/articles/filter/?<?= $data['filter_url'] ?>&to_page=<?= $data['pagination']['pagesCount'] ?>" ><button class="btn btn-sm btn-primary">Last (<?= $data['pagination']['pagesCount'] ?>)</button></a>
+
+
+
+
+
