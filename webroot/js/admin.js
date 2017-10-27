@@ -48,7 +48,7 @@ function updateCategoryByArticle(res) {
 
 }
 
-/function slider() {
+function slider() {
 
     $img = $('.slider__item');
 
